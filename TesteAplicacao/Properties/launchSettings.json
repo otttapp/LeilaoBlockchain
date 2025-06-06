@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "TesteAplicacao": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": false
+    }
+  },
+  "ConnectionStrings": {
+    "DatabaseConnection": "Data Source=localhost,1433;Initial Catalog=projeto_aplicado_ii;Persist Security Info=True;User ID=sa;Password=Gabriel@13242872924;Encrypt=False;Trust Server Certificate=True;"
+  }
+}
