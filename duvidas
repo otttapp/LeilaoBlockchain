@@ -1,0 +1,15 @@
+Ainda estou fazendo a conexao DB, porem para o caso de voce querer se conectar no futuro, aqui vao alguns conselhos:
+
+1: usa o visual studio 2022 para programar c#, melhor que tem hoje
+2: como banco, atualmente estamos usando um local para ser melhor, pois o AWS, por mais de ser muito bom, tem algumas limitacoes no plano gratis e isso pode fazer com que a gente gaste sem querer
+3: string de conexao ja esta la dentro, porem para conectar, eu estou usando o sql server management studio 2022, pois ele é da microsoft igual o vs2022, dai tem como usar os dois juntos usadno uma funcao dentro da api, que voce pode achar aqui:
+4: tem dentro fora das pastas da API, tem um arquivo chamado Connected Services, para voce conectar nele é melhor por ele por ser nativo, se tiver duvida me manda um wpp, eu explico mais facil.
+5: Estamos usando o docker como meio, acho muito mais tranquilo, para criar o docker, baixa o app dele e roda isto no cmd:
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Gabriel@13242872924" -p 1433:1433 --name sqlserver-container -d mcr.microsoft.com/mssql/server:2019-latest
+
+6: A API está basicamnete toda configurada, a unica coisa que falta realmnente é a conexao do banco que vai ser local mesmo agora
+7: manda sempre uma brench separada para cada coisa que for mandar, e cuida pra nao mandar um famoso bomber man (pr bomba)
+8: para dar merge, da merge na develop so, nao usa a master n 
+9: eu vou usar o postman para mandar os end-points melhor, entao tem que baixar ele e adicionar tudo por la, não sei se voce sabe como usar ele porem se não souber é bem de boa
+10: qualquer duvida me manda msg
