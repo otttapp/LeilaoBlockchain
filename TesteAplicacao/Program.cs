@@ -4,14 +4,11 @@ using Cuca_Api.Infraestructure.Context;
 using Cuca_Api.Infraestructure.Middleware;
 using Cuca_Api.Infraestructure.Repository;
 using Cuca_Api.Infraestrutra.Extensions;
-using Cuca_Api.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using TesteAplicacao.Infraestructure.Context;
+using PD_Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApiVersioning(
@@ -38,13 +35,6 @@ builder.Services.AddControllers(
 }).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    //options.JsonSerializerOptions.Converters.Add(new CPFJsonConverter());
-    //options.JsonSerializerOptions.Converters.Add(new CNPJJsonConverter());
-    //options.JsonSerializerOptions.Converters.Add(new EmailJsonConverter());
-    //options.JsonSerializerOptions.Converters.Add(new TelefoneJsonConverter());
-    //options.JsonSerializerOptions.Converters.Add(new PorcentagemJsonConverter());
-    //options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-    //options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -145,26 +135,14 @@ if (ParameterStore.Ambiente(builder.Configuration) != "Test")
             .Build();
     });
 
+
+
     builder.Services.AddDbContext<MainDBContext>(options =>
     {
-        //    string connectionString = builder.Configuration.GetConnectionString("connstr-pdi-mysql")!;
-        //#if !DEBUG
-        //    connectionString = builder.Configuration.GetValue<string>($"connstr-pdi-mysql:{ParameterStore.Ambiente(builder.Configuration)}");
-        //#endif
-
-        //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), dboptions =>
-        //    {
-        //        dboptions.CommandTimeout(60);
-        //    })
-        //    .UseLazyLoadingProxies()
-        //    .EnableSensitiveDataLogging()  // Exibe valores sensíveis nas consultas (se necessário)
-        //    .LogTo(Console.WriteLine, LogLevel.Information);
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")!)
+            .EnableSensitiveDataLogging()
+            .LogTo(Console.WriteLine, LogLevel.Information);
     });
-
-    //builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions("AWS"));
-    //var awsOptions = builder.Configuration.GetAWSOptions();
-    //awsOptions.Region = Amazon.RegionEndpoint.SAEast1;
-
 
     builder.Services.AddHttpClient();
     builder.Services.AddHttpContextAccessor();
@@ -193,6 +171,7 @@ if (ParameterStore.Ambiente(builder.Configuration) != "Test")
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
     app.UseCors("CorsPolicy");
 
     app.UseRouting();

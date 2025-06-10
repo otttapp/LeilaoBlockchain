@@ -1,18 +1,23 @@
 ﻿//using Cuca_Api.Entities;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using Microsoft.EntityFrameworkCore;
+using TesteAplicacao.Entities;
 
 namespace Cuca_Api.Infraestructure.Context
 {
     public class MainDBContext : DbContext
     {
-        private readonly IHttpContextAccessor httpContext;
-
-        public MainDBContext(DbContextOptions<MainDBContext> context, IHttpContextAccessor httpContext) : base(context)
+        public MainDBContext(DbContextOptions<MainDBContext> context) : base(context)
         {
-            this.httpContext = httpContext;
-        }
 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(modelBuilder);
+        }
         #region transaction
         public async Task RunInTransactionAsync(Func<Task> operations, Func<Task>? ifFails = null, MainDBContext? context = null)
         {
@@ -53,29 +58,12 @@ namespace Cuca_Api.Infraestructure.Context
         }
         #endregion
 
-        #region DbSets
-
-        //public DbSet<Membros> members { get; set; }
-        //public DbSet<Rotacoes> rotations { get; set; }
+        #region DBSets
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
 
         #endregion
 
-        //public async Task<Usuario?> GetUsuarioLogado()
-        //{
-        //    var claim = GetClaimsTokenCognito();
 
-        //    var usuario = await Usuarios
-        //        .Where(u => u.userid_cognito == claim || u.email == claim)
-        //        .FirstOrDefaultAsync();
-
-        //    return usuario;
-        //}
-
-        //public async Task<uint> GetUsuarioLogadoId()
-        //{
-        //    var idUsuarioLogado = (await GetUsuarioLogado())?.usuario_id ?? 0;
-
-        //    return idUsuarioLogado;
-        //}
     }
 }

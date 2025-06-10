@@ -1,5 +1,5 @@
-﻿//using Cuca_Api.Infraestructure.Interfaces.membros;
-//using Cuca_Api.Infraestructure.Interfaces.Rotacoes;
+﻿using PD_Api.Infraestructure.Interfaces;
+using PD_Api.Infraestructure.Repository;
 
 namespace Cuca_Api.Infraestructure.Repository
 {
@@ -7,8 +7,7 @@ namespace Cuca_Api.Infraestructure.Repository
     {
         public static void RegisterRepositories(this IServiceCollection services)
         {
-            //services.AddScoped<IMembrosRep, MembrosRep>();
-            //services.AddScoped<IRotacoesRep, RotacoesRep>();
+            services.AddScoped<IProdutoRep, ProdutoRep>();
         }
     }
 }
