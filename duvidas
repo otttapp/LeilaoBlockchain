@@ -6,7 +6,7 @@ Ainda estou fazendo a conexao DB, porem para o caso de voce querer se conectar n
 4: tem dentro fora das pastas da API, tem um arquivo chamado Connected Services, para voce conectar nele é melhor por ele por ser nativo, se tiver duvida me manda um wpp, eu explico mais facil.
 5: Estamos usando o docker como meio, acho muito mais tranquilo, para criar o docker, baixa o app dele e roda isto no cmd:
 
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Gabriel@13242872924" -p 1433:1433 --name sqlserver-container -d mcr.microsoft.com/mssql/server:2019-latest
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SenhaPika@123" -p 1433:1433 --name sqlserver-container -d mcr.microsoft.com/mssql/server:2019-latest
 
 6: A API está basicamnete toda configurada, a unica coisa que falta realmnente é a conexao do banco que vai ser local mesmo agora
 7: manda sempre uma brench separada para cada coisa que for mandar, e cuida pra nao mandar um famoso bomber man (pr bomba)
