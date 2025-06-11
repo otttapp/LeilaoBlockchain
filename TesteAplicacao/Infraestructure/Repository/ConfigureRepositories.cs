@@ -1,7 +1,7 @@
-﻿using PD_Api.Infraestructure.Interfaces;
-using PD_Api.Infraestructure.Repository;
+﻿using TesteAplicacao.Infraestructure.Interfaces;
+using TesteAplicacao.Infraestructure.Repository;
 
-namespace Cuca_Api.Infraestructure.Repository
+namespace TesteAplicacao.Infraestructure.Repository
 {
     public static class ConfigureRepositories
     {

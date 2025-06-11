@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using Cuca_Api.Infraestructure.Context;
-using Cuca_Api.Infraestructure.Exceptions;
-using Cuca_Api.Infraestructure.Interfaces;
-using Cuca_Api.Infraestructure.Procedure;
+using TesteAplicacao.Infraestructure.Context;
+using TesteAplicacao.Infraestructure.Exceptions;
+using TesteAplicacao.Infraestructure.Interfaces;
+using TesteAplicacao.Infraestructure.Procedure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cuca_Api.Infraestructure.Repository
+namespace TesteAplicacao.Infraestructure.Repository
 {
     public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> where TEntity : class
     {

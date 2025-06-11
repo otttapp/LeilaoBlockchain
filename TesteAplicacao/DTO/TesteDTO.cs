@@ -1,4 +1,4 @@
-﻿namespace Cuca_Api.DTO
+﻿namespace TesteAplicacao.DTO
 {
     public class TesteGerarSegundasFeirasRequestDTO
     {

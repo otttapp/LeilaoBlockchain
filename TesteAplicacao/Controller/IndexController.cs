@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Cuca_Api.Infraestructure.ParameterStore;
-using Cuca_Api.Infraestrutra.Responses;
+using TesteAplicacao.Infraestructure.ParameterStore;
+using TesteAplicacao.Infraestrutra.Responses;
 
-namespace Cuca_Api.Controller
+namespace TesteAplicacao.Controller
 {
-    [ApiVersion("1")]
-    [Route("api/v{version:apiVersion}")]
     [ApiController]
     public class IndexController : BaseController
     {

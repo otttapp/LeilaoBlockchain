@@ -1,18 +1,19 @@
 ﻿using System.Text;
-using Cuca_Api.Infraestructure.Context;
-using Cuca_Api.Infraestructure.Exceptions;
-using PD_Api.Infraestructure.Repository;
+using TesteAplicacao.Infraestructure.Context;
+using TesteAplicacao.Infraestructure.Exceptions;
+using TesteAplicacao.Infraestructure.Repository;
 using TesteAplicacao.DTO;
 using TesteAplicacao.Entities;
 using TesteAplicacao.Services.Usuario;
+using TesteAplicacao.Infraestructure.Interfaces;
 
-namespace PD_Api.Services
+namespace TesteAplicacao.Services
 {
     public class ProdutoService
     {
         private readonly MainDBContext _dbContext;
-        private readonly ProdutoRep _produtoRep;
-        public ProdutoService(MainDBContext dbContext, ProdutoRep produtoRep)
+        private readonly IProdutoRep _produtoRep;
+        public ProdutoService(MainDBContext dbContext, IProdutoRep produtoRep)
         {
             this._dbContext = dbContext;
             this._produtoRep = produtoRep;

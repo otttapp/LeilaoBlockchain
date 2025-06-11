@@ -1,11 +1,11 @@
 ﻿using Azure;
-using Cuca_Api.Infraestructure.Context;
-using Cuca_Api.Infraestructure.Repository;
+using TesteAplicacao.Infraestructure.Context;
+using TesteAplicacao.Infraestructure.Repository;
 using Microsoft.EntityFrameworkCore;
-using PD_Api.Infraestructure.Interfaces;
+using TesteAplicacao.Infraestructure.Interfaces;
 using TesteAplicacao.Entities;
 
-namespace PD_Api.Infraestructure.Repository
+namespace TesteAplicacao.Infraestructure.Repository
 {
     public class ProdutoRep : RepositoryBase<Produto>, IProdutoRep
     {

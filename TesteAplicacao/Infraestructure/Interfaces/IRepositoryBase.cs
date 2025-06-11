@@ -1,7 +1,7 @@
-﻿using Cuca_Api.Infraestructure.Procedure;
+﻿using TesteAplicacao.Infraestructure.Procedure;
 using System.Linq.Expressions;
 
-namespace Cuca_Api.Infraestructure.Interfaces
+namespace TesteAplicacao.Infraestructure.Interfaces
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {

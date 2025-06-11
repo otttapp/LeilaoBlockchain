@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Cuca_Api.Infraestrutra.Responses
+namespace TesteAplicacao.Infraestrutra.Responses
 {
     public class HttpOkResponse<T>
     {

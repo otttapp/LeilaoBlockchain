@@ -1,49 +1,55 @@
-﻿using System;
+﻿using System.Net;
 using Newtonsoft.Json;
-using System.Net;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Cuca_Api.Infraestrutra.Extensions;
+using TesteAplicacao.Infraestrutra.Extensions;
 
-namespace Cuca_Api.Infraestrutra.Responses
+namespace TesteAplicacao.Infraestrutra.Responses
 {
     public class HttpErrorResponse
     {
-        public int statusCode { get; private set; }
-        public string statusDescription { get; private set; }
+        [JsonProperty("statusCode")]
+        public int StatusCode { get; private set; }
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string mensagem { get; private set; }
+        [JsonProperty("statusDescription")]
+        public string StatusDescription { get; private set; }
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public object detalhes { get; private set; }
+        [JsonProperty("mensagem", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Mensagem { get; private set; }
 
-        public List<ValidationError> errors { get; }
+        [JsonProperty("detalhes", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public object Detalhes { get; private set; }
+
+        [JsonProperty("errors", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<ValidationError> Errors { get; private set; }
 
         public HttpErrorResponse(HttpStatusCode statusCode)
         {
-            this.statusCode = (int)statusCode;
-            statusDescription = statusCode.ToString();
+            StatusCode = (int)statusCode;
+            StatusDescription = statusCode.ToString();
         }
 
-        public HttpErrorResponse(HttpStatusCode statusCode, string message) : this(statusCode)
+        public HttpErrorResponse(HttpStatusCode statusCode, string mensagem)
+            : this(statusCode)
         {
-            mensagem = message;
+            Mensagem = mensagem;
         }
 
-        public HttpErrorResponse(HttpStatusCode statusCode, string message, object details) : this(statusCode, message)
+        public HttpErrorResponse(HttpStatusCode statusCode, string mensagem, object detalhes)
+            : this(statusCode, mensagem)
         {
-            detalhes = details;
+            Detalhes = detalhes;
         }
 
-        public HttpErrorResponse(HttpStatusCode statusCode, string message, ModelStateDictionary modelState) : this(statusCode)
+        public HttpErrorResponse(HttpStatusCode statusCode, string mensagem, ModelStateDictionary modelState)
+            : this(statusCode, mensagem)
         {
-            mensagem = message;
-            errors = modelState.Keys
-                    .SelectMany(key => modelState[key].Errors.Select(x => new ValidationError(key, 0, x.ErrorMessage)))
+            if (modelState != null)
+            {
+                Errors = modelState
+                    .Where(ms => ms.Value.Errors.Any())
+                    .SelectMany(ms => ms.Value.Errors.Select(error => new ValidationError(ms.Key, 0, error.ErrorMessage)))
                     .ToList();
+            }
         }
-
-        
     }
 }
-

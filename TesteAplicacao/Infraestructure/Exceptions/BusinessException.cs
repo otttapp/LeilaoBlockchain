@@ -1,4 +1,4 @@
-﻿namespace Cuca_Api.Infraestructure.Exceptions
+﻿namespace TesteAplicacao.Infraestructure.Exceptions
 {
     public class BusinessException : Exception
     {

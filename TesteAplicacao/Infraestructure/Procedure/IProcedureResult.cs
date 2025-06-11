@@ -1,4 +1,4 @@
-﻿namespace Cuca_Api.Infraestructure.Procedure
+﻿namespace TesteAplicacao.Infraestructure.Procedure
 {
     public interface IProcedureResult
     {

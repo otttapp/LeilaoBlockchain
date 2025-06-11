@@ -1,4 +1,4 @@
-﻿namespace Cuca_Api.Infraestructure.ParameterStore
+﻿namespace TesteAplicacao.Infraestructure.ParameterStore
 {
     /**
      * 

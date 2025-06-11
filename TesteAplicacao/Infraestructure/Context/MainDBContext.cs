@@ -4,7 +4,7 @@ using System.Runtime.ExceptionServices;
 using Microsoft.EntityFrameworkCore;
 using TesteAplicacao.Entities;
 
-namespace Cuca_Api.Infraestructure.Context
+namespace TesteAplicacao.Infraestructure.Context
 {
     public class MainDBContext : DbContext
     {

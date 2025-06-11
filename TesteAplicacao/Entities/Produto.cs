@@ -8,9 +8,9 @@
         
         public bool ativo { get; set; }
 
-        public string descricao { get; set; } = null!;
+        public string? descricao { get; set; } = null!;
 
-        public DateOnly data_compra { get; set; }
+        public DateTime? data_compra { get; set; }
 
         public DateTime? datahora_insercao { get; set; }    
 
@@ -18,9 +18,9 @@
 
         public uint raridade{ get; set; }
 
-        public uint usuario_id { get; set; } 
+        //public uint usuario_id { get; set; } 
 
-        public Usuario usuario { get; set; } = null!;
+        //public Usuario usuario { get; set; } = null!;
         
     }
 }

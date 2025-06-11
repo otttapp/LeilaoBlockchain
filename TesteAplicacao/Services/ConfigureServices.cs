@@ -1,12 +1,13 @@
-﻿using TesteAplicacao.Services.Usuario;
+﻿using TesteAplicacao.Infraestructure.Repository;
+using TesteAplicacao.Services.Usuario;
 
-namespace PD_Api.Services
+namespace TesteAplicacao.Services
 {
     public static class ConfigureServices
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(); 
             services.AddScoped<ProdutoService>();
         }
     }

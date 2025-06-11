@@ -1,86 +1,47 @@
 ﻿using System.Net;
-using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Cuca_Api.Infraestructure.Exceptions;
-using Cuca_Api.Infraestrutra.Responses;
 
-namespace Cuca_Api.Infraestructure.Middleware
+namespace TesteAplicacao.Infraestructure.Middleware
 {
     public class GlobalExceptionHandlerMiddleware : IMiddleware
     {
+        private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;
 
-        private readonly ILogger<GlobalExceptionHandlerMiddleware> log;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
-
-        public GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHandlerMiddleware> log, IServiceScopeFactory serviceScopeFactory)
+        public GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHandlerMiddleware> logger)
         {
-            this.log = log;
-            this._serviceScopeFactory = serviceScopeFactory;
+            _logger = logger;
         }
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                var endpoint = context.GetEndpoint();
                 await next(context);
             }
             catch (Exception ex)
             {
-                log.LogError(ex, JsonConvert.SerializeObject(ex.InnerException));
-                log.LogError(ex, JsonConvert.SerializeObject(ex.Message));
-                await HandleExceptionAsync(context, ex);
-            }
-        }
+                _logger.LogError(ex, "Ocorreu um erro inesperado.");
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = "application/json";
 
-            context.Response.ContentType = "application/json";
-            var settingsJson = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-
-            if (exception is BusinessException businessException)
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
-
-                if (!(businessException.Details is null))
+                var response = new
                 {
-                    return context.Response.WriteAsync(JsonConvert.SerializeObject(
-                        new HttpErrorResponse(
-                            HttpStatusCode.UnprocessableEntity,
-                            businessException.Message,
-                            new
-                            {
-                                ErrorType = "BusinessException",
-                                ErrorCode = businessException.Identifier,
-                                ErrorDetails = businessException.Details
-                            }
-                        )
-                    , settingsJson));
-                }
+                    message = ex.Message,
+                    exceptionType = ex.GetType().Name,
+                    stackTrace = ex.StackTrace
+                };
 
-                return context.Response.WriteAsync(JsonConvert.SerializeObject(
-                    new HttpErrorResponse(
-                        HttpStatusCode.UnprocessableEntity,
-                        businessException.Message,
-                        new
-                        {
-                            ErrorType = "BusinessException",
-                            ErrorIdentifier = businessException.Identifier
-                        }
-                    )
-                , settingsJson));
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    Formatting = Formatting.Indented
+                };
+
+                var json = JsonConvert.SerializeObject(response, jsonSettings);
+                await context.Response.WriteAsync(json);
             }
-            else
-            {
-            }
-
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(new HttpErrorResponse(HttpStatusCode.InternalServerError, "An error occurred while processing the request", exception), settingsJson));
         }
     }
 }

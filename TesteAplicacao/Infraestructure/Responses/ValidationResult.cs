@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
-using Cuca_Api.Infraestrutra.Responses;
+using TesteAplicacao.Infraestrutra.Responses;
 
-namespace Cuca_Api.Infraestrutra.Extensions
+namespace TesteAplicacao.Infraestrutra.Extensions
 {
     public class ValidationError
     {

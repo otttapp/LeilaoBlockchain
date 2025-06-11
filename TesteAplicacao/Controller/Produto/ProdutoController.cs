@@ -1,11 +1,12 @@
-﻿using Cuca_Api.Controller;
-using Cuca_Api.Infraestrutra.Responses;
+﻿using TesteAplicacao.Controller;
+using TesteAplicacao.Infraestrutra.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PD_Api.Services;
+using TesteAplicacao.Services;
 using TesteAplicacao.DTO;
 using TesteAplicacao.Entities;
 
-namespace PD_Api.Controller
+namespace TesteAplicacao.Controller
 {
     [Route("/produto")]
     [ApiController]

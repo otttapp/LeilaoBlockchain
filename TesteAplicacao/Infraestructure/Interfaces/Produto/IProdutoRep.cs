@@ -1,7 +1,7 @@
-﻿using Cuca_Api.Infraestructure.Interfaces;
+﻿using TesteAplicacao.Infraestructure.Interfaces;
 using TesteAplicacao.Entities;
 
-namespace PD_Api.Infraestructure.Interfaces
+namespace TesteAplicacao.Infraestructure.Interfaces
 {
     public interface IProdutoRep : IRepositoryBase<Produto>
     {

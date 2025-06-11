@@ -30,8 +30,7 @@ public class ProdutoConfiguration : IEntityTypeConfiguration<Produto>
             .HasMaxLength(255);
 
         builder.Property(p => p.data_compra)
-            .HasColumnName("data_compra")
-            .IsRequired(false);
+            .HasColumnName("data_compra");
 
         builder.Property(p => p.datahora_insercao)
             .HasColumnName("datahora_insercao")
@@ -46,13 +45,13 @@ public class ProdutoConfiguration : IEntityTypeConfiguration<Produto>
             .HasColumnName("raridade")
             .IsRequired();
 
-        builder.Property(p => p.usuario_id)
-            .HasColumnName("usuario_id")
-            .IsRequired();
+        //builder.Property(p => p.usuario_id)
+        //    .HasColumnName("usuario_id")
+        //    .IsRequired();
 
-        builder.HasOne(p => p.usuario)
-            .WithMany()
-            .HasForeignKey(p => p.usuario_id)
-            .OnDelete(DeleteBehavior.Restrict);
+        //builder.HasOne(p => p.usuario)
+        //    .WithMany()
+        //    .HasForeignKey(p => p.usuario_id)
+        //    .OnDelete(DeleteBehavior.Restrict);
     }
 }

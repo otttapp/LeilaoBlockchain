@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Cuca_Api.Infraestrutra.Responses;
+using TesteAplicacao.Infraestrutra.Responses;
 using System.Net;
 
-namespace Cuca_Api.Controller
+namespace TesteAplicacao.Controller
 {
     [ApiController]
     public abstract class BaseController : ControllerBase
@@ -240,7 +240,7 @@ namespace Cuca_Api.Controller
         private IActionResult CreateStatusCodeResponse(HttpStatusCode httpStatusCode, string message, object details)
         {
             HttpErrorResponse httpErrorResponse = new HttpErrorResponse(httpStatusCode, message, details);
-            return StatusCode(httpErrorResponse.statusCode, httpErrorResponse);
+            return StatusCode(httpErrorResponse.StatusCode, httpErrorResponse);
         }
     }
 }
