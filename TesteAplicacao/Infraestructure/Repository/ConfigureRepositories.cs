@@ -8,6 +8,7 @@ namespace TesteAplicacao.Infraestructure.Repository
         public static void RegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped<IProdutoRep, ProdutoRep>();
+            services.AddScoped<IUsuarioRep, UsuarioRep>();
         }
     }
 }

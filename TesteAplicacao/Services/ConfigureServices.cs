@@ -1,5 +1,4 @@
 ﻿using TesteAplicacao.Infraestructure.Repository;
-using TesteAplicacao.Services.Usuario;
 
 namespace TesteAplicacao.Services
 {
@@ -9,6 +8,7 @@ namespace TesteAplicacao.Services
         {
             services.AddMvc(); 
             services.AddScoped<ProdutoService>();
+            services.AddScoped<UsuarioService>();
         }
     }
 }

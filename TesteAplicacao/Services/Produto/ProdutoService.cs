@@ -4,7 +4,6 @@ using TesteAplicacao.Infraestructure.Exceptions;
 using TesteAplicacao.Infraestructure.Repository;
 using TesteAplicacao.DTO;
 using TesteAplicacao.Entities;
-using TesteAplicacao.Services.Usuario;
 using TesteAplicacao.Infraestructure.Interfaces;
 
 namespace TesteAplicacao.Services
