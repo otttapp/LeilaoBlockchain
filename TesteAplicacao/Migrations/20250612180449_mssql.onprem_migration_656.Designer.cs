@@ -12,8 +12,8 @@ using TesteAplicacao.Infraestructure.Context;
 namespace TesteAplicacao.Migrations
 {
     [DbContext(typeof(MainDBContext))]
-    [Migration("20250611185515_mssql.onprem_migration_529")]
-    partial class mssqlonprem_migration_529
+    [Migration("20250612180449_mssql.onprem_migration_656")]
+    partial class mssqlonprem_migration_656
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
