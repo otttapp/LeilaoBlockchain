@@ -12,8 +12,8 @@ using TesteAplicacao.Infraestructure.Context;
 namespace TesteAplicacao.Migrations
 {
     [DbContext(typeof(MainDBContext))]
-    [Migration("20250612180449_mssql.onprem_migration_656")]
-    partial class mssqlonprem_migration_656
+    [Migration("20250613173259_mssql.onprem_migration_960")]
+    partial class mssqlonprem_migration_960
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,11 +106,15 @@ namespace TesteAplicacao.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("nome");
 
-                    b.Property<string>("senha")
+                    b.Property<byte[]>("senha_hash")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("senha");
+                        .HasColumnType("varbinary(64)")
+                        .HasColumnName("senha_hash");
+
+                    b.Property<byte[]>("senha_salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(64)")
+                        .HasColumnName("senha_salt");
 
                     b.Property<string>("telefone")
                         .HasMaxLength(15)

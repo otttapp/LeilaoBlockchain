@@ -16,16 +16,21 @@ namespace TesteAplicacao.Infraestructure.Context.Configurations
                 .HasColumnName("usuario_id")
                 .IsRequired()
                 .ValueGeneratedOnAdd();
-           
+
             builder.Property(u => u.nome)
                 .HasColumnName("nome")
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(u => u.senha)
-                .HasColumnName("senha")
+            builder.Property(u => u.senha_hash)
+                .HasColumnName("senha_hash")
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasColumnType("varbinary(64)"); // Tamanho sugerido 
+
+            builder.Property(u => u.senha_salt)
+                .HasColumnName("senha_salt")
+                .IsRequired()
+                .HasColumnType("varbinary(64)"); // Tamanho sugerido 
 
             builder.Property(u => u.email)
                 .HasColumnName("email")
