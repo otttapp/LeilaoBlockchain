@@ -9,8 +9,6 @@ namespace TesteAplicacao.Entities
 
         public string nome { get; set; } = null!;
 
-        public string senha { get; set; } = null!;
-
         public string? email { get; set; } = null!;
 
         public string? telefone { get; set; }
@@ -20,6 +18,11 @@ namespace TesteAplicacao.Entities
         public DateTime? datahora_insercao { get; set; }
 
         public DateTime? datahora_desativacao { get; set; }
+
+        public byte[] senha_hash { get; set; } = null!;
+
+        public byte[] senha_salt { get; set; } = null!;
     }
 }
+
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TesteAplicacao.Migrations
 {
     /// <inheritdoc />
-    public partial class mssqlonprem_migration_656 : Migration
+    public partial class mssqlonprem_migration_960 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,12 +37,13 @@ namespace TesteAplicacao.Migrations
                     usuario_id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    senha = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     telefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     datahora_insercao = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    datahora_desativacao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    datahora_desativacao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    senha_hash = table.Column<byte[]>(type: "varbinary(64)", nullable: false),
+                    senha_salt = table.Column<byte[]>(type: "varbinary(64)", nullable: false)
                 },
                 constraints: table =>
                 {

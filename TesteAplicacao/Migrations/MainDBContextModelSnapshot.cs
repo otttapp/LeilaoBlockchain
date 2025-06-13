@@ -103,11 +103,15 @@ namespace TesteAplicacao.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("nome");
 
-                    b.Property<string>("senha")
+                    b.Property<byte[]>("senha_hash")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("senha");
+                        .HasColumnType("varbinary(64)")
+                        .HasColumnName("senha_hash");
+
+                    b.Property<byte[]>("senha_salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(64)")
+                        .HasColumnName("senha_salt");
 
                     b.Property<string>("telefone")
                         .HasMaxLength(15)
