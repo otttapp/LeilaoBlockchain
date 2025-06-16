@@ -1,7 +1,9 @@
 ﻿//using Cuca_Api.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TesteAplicacao.Entities;
 
 namespace TesteAplicacao.Infraestructure.Context
@@ -63,7 +65,6 @@ namespace TesteAplicacao.Infraestructure.Context
         public DbSet<Produto> Produtos { get; set; }
 
         #endregion
-
-
+       
     }
 }
