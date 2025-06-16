@@ -46,8 +46,8 @@ namespace TesteAplicacao.Infraestrutra.Responses
             if (modelState != null)
             {
                 Errors = modelState
-                    .Where(ms => ms.Value.Errors.Any())
-                    .SelectMany(ms => ms.Value.Errors.Select(error => new ValidationError(ms.Key, 0, error.ErrorMessage)))
+                    .Where(ms => ms.Value!.Errors.Any())
+                    .SelectMany(ms => ms.Value!.Errors.Select(error => new ValidationError(ms.Key, 0, error.ErrorMessage)))
                     .ToList();
             }
         }

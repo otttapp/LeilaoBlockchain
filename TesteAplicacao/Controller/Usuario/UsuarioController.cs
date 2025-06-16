@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TesteAplicacao.DTO;
 using TesteAplicacao.Infraestrutra.Responses;
 using TesteAplicacao.Services;
@@ -31,6 +32,19 @@ namespace TesteAplicacao.Controller.Usuario
         public async Task<IActionResult> AlterarUsuario([FromBody] AlterarUsuarioRequestDto request, uint usuario_id )
         {
             return Ok(new HttpOkResponse<bool>("Usuario Alterado com sucesso.", await _usuarioService.AlterarUsuario(request, usuario_id)));
+        }
+
+        [HttpPost("{usuario_id}/AlterarSenha")]
+        public async Task<IActionResult> AlterarSenha( [FromBody] AlterarSenhaUsuarioRequestDto request, uint usuario_id)
+        {
+            return Ok(new HttpOkResponse<bool>("Senha alterado com sucesso.", await _usuarioService.AlterarSenha(request, usuario_id)));
+        }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        {
+            return Ok(new HttpOkResponse<UsuarioResponseDto>("Login efetuado com sucesso!", await _usuarioService.Login(request)));
         }
     }
 }

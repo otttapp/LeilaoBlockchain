@@ -27,7 +27,7 @@ namespace TesteAplicacao.Services
                descricao = request.descricao,
                datahora_insercao = DateTime.UtcNow,
                valor = request.valor,
-               raridade = request.raridade
+               raridade = request.raridade,      
             };
 
             await _dbContext.RunInTransactionAsync(async () =>

@@ -44,7 +44,6 @@ namespace TesteAplicacao.Services
             return true;
         }
 
-
         public async Task<bool> AlterarUsuario(AlterarUsuarioRequestDto request, uint usuario_id)
         {
             var usuario = await _usuarioRep.GetById(usuario_id);
@@ -63,7 +62,6 @@ namespace TesteAplicacao.Services
             usuario.email = request.email;
             usuario.telefone = request.telefone;
             
-
             await _dbContext.RunInTransactionAsync(async () =>
             {
                 await _usuarioRep.Update(usuario);
@@ -105,7 +103,6 @@ namespace TesteAplicacao.Services
             return true;
         }
 
-
         public async Task<bool> AtivarInativarUsuario(uint usuario_id)
         {
             var usuario = await _usuarioRep.GetById(usuario_id);
@@ -123,6 +120,28 @@ namespace TesteAplicacao.Services
             });
 
             return true;
+        }
+
+        public async Task<UsuarioResponseDto> Login(LoginRequestDto dtoUsuario)
+        {
+            var usuario = await _usuarioRep
+                .FindByEmail(dtoUsuario.email)
+                ?? throw new BusinessException("USUARIO_SENHA_INVALIDOS", "Usuário ou senha inválidos.");
+
+            if (!usuario.ativo)
+                throw new BusinessException("USUARIO_INATIVO", "Usuário não está ativo!");
+
+            bool senhaOK = dtoUsuario.password.VerifyPassword(usuario.senha_hash, usuario.senha_salt);
+            if (!senhaOK)
+                throw new BusinessException("USUARIO_SENHA_INVALIDOS", "Usuário ou senha inválidos.");
+
+            string token = Convert.ToBase64String(usuario.senha_hash);
+
+            return new UsuarioResponseDto
+            {
+                token = token,
+                email = dtoUsuario.email
+            };
         }
     }
 }
