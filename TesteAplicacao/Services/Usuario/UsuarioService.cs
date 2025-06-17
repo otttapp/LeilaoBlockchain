@@ -46,12 +46,7 @@ namespace TesteAplicacao.Services
 
         public async Task<bool> AlterarUsuario(AlterarUsuarioRequestDto request, uint usuario_id)
         {
-            var usuario = await _usuarioRep.GetById(usuario_id);
-
-            if (usuario is null)
-            {
-                throw new BusinessException("Usuário não encontrado.");
-            }
+            var usuario = await _usuarioRep.GetByIdThrowsIfNull(usuario_id);
 
             if (!usuario.ativo)
             {
@@ -72,12 +67,7 @@ namespace TesteAplicacao.Services
 
         public async Task<bool> AlterarSenha(AlterarSenhaUsuarioRequestDto request, uint usuario_id)
         {
-            var usuario = await _usuarioRep.GetById(usuario_id);
-
-            if (usuario is null)
-            {
-                throw new BusinessException("Usuário não encontrado.");
-            }
+            var usuario = await _usuarioRep.GetByIdThrowsIfNull(usuario_id);
 
             if (!usuario.ativo)
             {
@@ -105,12 +95,7 @@ namespace TesteAplicacao.Services
 
         public async Task<bool> AtivarInativarUsuario(uint usuario_id)
         {
-            var usuario = await _usuarioRep.GetById(usuario_id);
-
-            if (usuario is null)
-            {
-                throw new BusinessException("Usuário não encontrado.");
-            }
+            var usuario = await _usuarioRep.GetByIdThrowsIfNull(usuario_id);
 
            usuario.ativo = !usuario.ativo;
 
@@ -147,6 +132,10 @@ namespace TesteAplicacao.Services
         public async Task<PagedResult<GetUsuariosDto>> GetUsuarios(PaginacaoRequestDTO dto, bool ativo)
         {
            return await _usuarioRep.GetUsuarios(dto, ativo);
+        }
+        public async Task<GetUsuariosDto?> GetUsuariosByID(uint usuario_id)
+        {
+            return await _usuarioRep.GetUsuariosByID(usuario_id);
         }
 
     }

@@ -1,9 +1,11 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
+using System.Reflection;
 using TesteAplicacao.Infraestructure.Context;
 using TesteAplicacao.Infraestructure.Exceptions;
 using TesteAplicacao.Infraestructure.Interfaces;
 using TesteAplicacao.Infraestructure.Procedure;
-using Microsoft.EntityFrameworkCore;
 
 namespace TesteAplicacao.Infraestructure.Repository
 {
@@ -11,9 +13,20 @@ namespace TesteAplicacao.Infraestructure.Repository
     {
         protected readonly MainDBContext db;
 
+        private static readonly string _nomeEntidade = typeof(TEntity).GetCustomAttribute<TableAttribute>()?.Name.Replace('_', ' ') ?? typeof(TEntity).Name;
+        private static readonly string _nomeEntidadeUpper = (typeof(TEntity).GetCustomAttribute<TableAttribute>()?.ToString() ?? typeof(TEntity).Name).ToUpper();
+
         public RepositoryBase(MainDBContext _db)
         {
             db = _db;
+        }
+        public virtual async Task<TEntity> GetByIdThrowsIfNull(uint id) => await GetByIdThrowsIfNull<uint>(id);
+
+        private async Task<TEntity> GetByIdThrowsIfNull<T>(uint id, string? mensagem = null)
+        {
+            mensagem = String.IsNullOrWhiteSpace(mensagem) ? $"É necessário informar {_nomeEntidade}." : mensagem;
+
+            return await GetById(id) ?? throw new BusinessException($"{_nomeEntidadeUpper}_INEXISTENTE", mensagem, $"ID = {id}");
         }
 
         public virtual async Task Add(TEntity obj)

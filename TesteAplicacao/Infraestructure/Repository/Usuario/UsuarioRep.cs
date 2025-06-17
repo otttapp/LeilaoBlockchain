@@ -53,7 +53,22 @@ namespace TesteAplicacao.Infraestructure.Repository
                 .PaginateAsync(dto);
 
             return usuarios.Result.Any() ? usuarios : PagedResult<GetUsuariosDto>.Empty;
+        }
 
+        public async Task<GetUsuariosDto?> GetUsuariosByID(uint usuario_id)
+        {
+            return await db.Usuarios
+                .Where(u => u.usuario_id == usuario_id)
+                .Select(u => new GetUsuariosDto
+                {
+                    usuario_id = u.usuario_id,
+                    nome = u.nome,
+                    email = u.email ?? string.Empty,
+                    ativo = u.ativo,
+                    datahora_insercao = u.datahora_insercao,
+                    datahora_desativacao = u.datahora_desativacao,
+                })
+                .SingleOrDefaultAsync();
         }
     }
 }

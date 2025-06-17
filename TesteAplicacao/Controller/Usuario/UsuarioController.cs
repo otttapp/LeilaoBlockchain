@@ -54,5 +54,10 @@ namespace TesteAplicacao.Controller.Usuario
             return Ok(new HttpOkResponse<PagedResult<GetUsuariosDto>>("Usuários listados com sucesso!", await _usuarioService.GetUsuarios(dto, ativo)));
         }
 
+        [HttpGet("{usuario_id}")]
+        public async Task<IActionResult> GetUsuariosByID(uint usuario_id)
+        {
+            return Ok(new HttpOkResponse<GetUsuariosDto?>("Usuário listado com sucesso!", await _usuarioService.GetUsuariosByID(usuario_id)));
+        }
     }
 }

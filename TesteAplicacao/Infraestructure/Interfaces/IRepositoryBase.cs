@@ -8,7 +8,7 @@ namespace TesteAplicacao.Infraestructure.Interfaces
         Task Add(TEntity obj);
 
         Task AddRange(List<TEntity> obj);
-
+        Task<TEntity> GetByIdThrowsIfNull(uint id);
         Task<TEntity> GetById(uint id);
 
               //Task<IEnumerable<TEntity> > GetAll(); //falar com gabriel
