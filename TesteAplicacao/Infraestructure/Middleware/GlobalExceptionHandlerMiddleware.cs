@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using TesteAplicacao.Infraestructure.Exceptions; 
 
 namespace TesteAplicacao.Infraestructure.Middleware
 {
@@ -21,16 +22,22 @@ namespace TesteAplicacao.Infraestructure.Middleware
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ocorreu um erro inesperado.");
+                _logger.LogError(ex, "Ocorreu um erro.");
 
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
+
+                var statusCode = ex switch
+                {
+                    BusinessException => (int)HttpStatusCode.UnprocessableEntity, 
+                    _ => (int)HttpStatusCode.InternalServerError                
+                };
+
+                context.Response.StatusCode = statusCode;
 
                 var response = new
                 {
                     message = ex.Message,
-                    exceptionType = ex.GetType().Name,
-                    stackTrace = ex.StackTrace
+                    exceptionType = ex.GetType().Name
                 };
 
                 var jsonSettings = new JsonSerializerSettings

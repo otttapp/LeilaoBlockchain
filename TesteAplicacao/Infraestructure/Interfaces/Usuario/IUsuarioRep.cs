@@ -1,4 +1,5 @@
-﻿using TesteAplicacao.Entities;
+﻿using TesteAplicacao.DTO;
+using TesteAplicacao.Entities;
 
 namespace TesteAplicacao.Infraestructure.Interfaces
 {
@@ -6,6 +7,7 @@ namespace TesteAplicacao.Infraestructure.Interfaces
     {
         Task<Usuario> FindByEmail(string email);
         Task<Usuario?> GetByHashAsync(byte[] senhaHash);
+        Task<PagedResult<GetUsuariosDto>> GetUsuarios(PaginacaoRequestDTO dto, bool ativo);
 
     }
 }

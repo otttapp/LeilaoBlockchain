@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TesteAplicacao.DTO;
 using TesteAplicacao.Infraestrutra.Responses;
@@ -46,5 +47,12 @@ namespace TesteAplicacao.Controller.Usuario
         {
             return Ok(new HttpOkResponse<UsuarioResponseDto>("Login efetuado com sucesso!", await _usuarioService.Login(request)));
         }
+
+        [HttpGet]   
+        public async Task<IActionResult> GetUsuarios([FromQuery] PaginacaoRequestDTO dto, [FromQuery] bool ativo )
+        {
+            return Ok(new HttpOkResponse<PagedResult<GetUsuariosDto>>("Usuários listados com sucesso!", await _usuarioService.GetUsuarios(dto, ativo)));
+        }
+
     }
 }
