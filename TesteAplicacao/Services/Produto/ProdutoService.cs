@@ -23,7 +23,7 @@ namespace TesteAplicacao.Services
             var produto = new Produto
             {
                nome = request.nome,
-               ativo = request.ativo,
+               ativo = request.ativo,       
                descricao = request.descricao,
                datahora_insercao = DateTime.UtcNow,
                valor = request.valor,

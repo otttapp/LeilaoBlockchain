@@ -143,5 +143,11 @@ namespace TesteAplicacao.Services
                 email = dtoUsuario.email
             };
         }
+
+        public async Task<PagedResult<GetUsuariosDto>> GetUsuarios(PaginacaoRequestDTO dto, bool ativo)
+        {
+           return await _usuarioRep.GetUsuarios(dto, ativo);
+        }
+
     }
 }

@@ -18,7 +18,6 @@
         
         public uint raridade{ get; set; }
 
-
         //public uint usuario_id { get; set; }
 
         //public Usuario usuario { get; set; } = null!;
