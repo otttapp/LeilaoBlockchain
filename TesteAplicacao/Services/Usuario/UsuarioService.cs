@@ -10,14 +10,12 @@ namespace TesteAplicacao.Services
     public class UsuarioService
     {
         private readonly MainDBContext _dbContext;
-        private readonly IProdutoRep _produtoRep;
         private readonly IUsuarioRep _usuarioRep;
         
         
-        public UsuarioService(MainDBContext dbContext, IProdutoRep produtoRep, IUsuarioRep usuarioRep)
+        public UsuarioService(MainDBContext dbContext, IUsuarioRep usuarioRep)
         {
             this._dbContext = dbContext;
-            this._produtoRep = produtoRep;
             this._usuarioRep = usuarioRep;
         }
 
@@ -137,6 +135,5 @@ namespace TesteAplicacao.Services
         {
             return await _usuarioRep.GetUsuariosByID(usuario_id);
         }
-
     }
 }

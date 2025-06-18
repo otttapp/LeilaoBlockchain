@@ -1,18 +1,20 @@
-﻿//using Cuca_Api.Entities;
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Claims;
 using TesteAplicacao.Entities;
+using TesteAplicacao.Infraestructure.Exceptions;
 
 namespace TesteAplicacao.Infraestructure.Context
 {
     public class MainDBContext : DbContext
     {
+
         public MainDBContext(DbContextOptions<MainDBContext> context) : base(context)
         {
-
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,8 +65,7 @@ namespace TesteAplicacao.Infraestructure.Context
         #region DBSets
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
-
         #endregion
-       
     }
 }
+

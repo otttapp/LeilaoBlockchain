@@ -18,6 +18,7 @@ namespace TesteAplicacao.Controller.Usuario
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> InserirUsuario([FromBody] InserirUsuarioRequestDto request)
         {
             return Ok(new HttpOkResponse<bool>("Usuario inserido com sucesso.", await _usuarioService.InserirUsuario(request)));

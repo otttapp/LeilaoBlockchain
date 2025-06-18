@@ -1,6 +1,4 @@
-﻿using TesteAplicacao.Entities;
-
-namespace TesteAplicacao.DTO
+﻿namespace TesteAplicacao.DTO
 {
     public class InserirProdutoRequestDto
     {
@@ -14,8 +12,18 @@ namespace TesteAplicacao.DTO
 
         public uint raridade { get; set; }
     }
-    
-    public class ProdutoResponseDto
+
+    public class AlterarProdutoRequestDto
+    {
+        public string nome { get; set; } = null!;
+
+        public string descricao { get; set; } = null!;
+
+        public decimal valor { get; set; }
+
+        public uint raridade { get; set; }
+    }
+    public class GetPodutosDto
     {
         public uint produto_id { get; set; }
 
@@ -25,7 +33,7 @@ namespace TesteAplicacao.DTO
 
         public string descricao { get; set; } = null!;
 
-        public DateOnly data_compra { get; set; }
+        public DateTime? data_compra { get; set; }
 
         public DateTime? datahora_insercao { get; set; }
 
@@ -33,6 +41,12 @@ namespace TesteAplicacao.DTO
 
         public uint raridade { get; set; }
 
-        public Usuario usuario { get; set; } = null!;
+        public UsuarioBaseDto usuario { get; set; } = null!;
+    }
+
+    public class UsuarioBaseDto
+    {
+        public uint usuario_id { get; set; }
+        public string nome { get; set; } = string.Empty;
     }
 }

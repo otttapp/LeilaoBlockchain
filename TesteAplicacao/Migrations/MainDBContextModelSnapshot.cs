@@ -35,7 +35,7 @@ namespace TesteAplicacao.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("ativo");
 
-                    b.Property<DateTime?>("data_compra")
+                    b.Property<DateTime>("data_compra")
                         .HasColumnType("datetime2")
                         .HasColumnName("data_compra");
 
@@ -58,11 +58,17 @@ namespace TesteAplicacao.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("raridade");
 
+                    b.Property<long>("usuario_id")
+                        .HasColumnType("bigint")
+                        .HasColumnName("usuario_id");
+
                     b.Property<decimal>("valor")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("valor");
 
                     b.HasKey("produto_id");
+
+                    b.HasIndex("usuario_id");
 
                     b.ToTable("produto", (string)null);
                 });
@@ -121,6 +127,22 @@ namespace TesteAplicacao.Migrations
                     b.HasKey("usuario_id");
 
                     b.ToTable("usuario", (string)null);
+                });
+
+            modelBuilder.Entity("TesteAplicacao.Entities.Produto", b =>
+                {
+                    b.HasOne("TesteAplicacao.Entities.Usuario", "usuario")
+                        .WithMany("produtos")
+                        .HasForeignKey("usuario_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("usuario");
+                });
+
+            modelBuilder.Entity("TesteAplicacao.Entities.Usuario", b =>
+                {
+                    b.Navigation("produtos");
                 });
 #pragma warning restore 612, 618
         }

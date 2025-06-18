@@ -9,6 +9,8 @@ namespace TesteAplicacao.Services
             services.AddMvc(); 
             services.AddScoped<ProdutoService>();
             services.AddScoped<UsuarioService>();
+            services.AddScoped<UsuarioAutenticadoService>();
+
         }
     }
 }

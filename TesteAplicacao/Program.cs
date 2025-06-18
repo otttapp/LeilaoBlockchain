@@ -9,7 +9,15 @@ using TesteAplicacao.Infraestructure.Repository;
 using TesteAplicacao.Infraestrutra.Extensions;
 using TesteAplicacao.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+//docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SenhaPika@123" -p 1433:1433 --name sqlserver-container -d mcr.microsoft.com/mssql/server:2019-latest
+
+
+
 
 builder.Services.AddControllers(options =>
 {
@@ -53,6 +61,7 @@ builder.Services.AddDbContext<MainDBContext>(options =>
 
 builder.Services.RegisterServices();
 builder.Services.RegisterRepositories();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 builder.Services.AddTransient<HashAuthenticationMiddleware>();

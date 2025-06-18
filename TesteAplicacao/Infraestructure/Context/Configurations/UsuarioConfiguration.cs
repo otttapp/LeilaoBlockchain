@@ -25,12 +25,12 @@ namespace TesteAplicacao.Infraestructure.Context.Configurations
             builder.Property(u => u.senha_hash)
                 .HasColumnName("senha_hash")
                 .IsRequired()
-                .HasColumnType("varbinary(64)"); // Tamanho sugerido 
+                .HasColumnType("varbinary(64)");
 
             builder.Property(u => u.senha_salt)
                 .HasColumnName("senha_salt")
                 .IsRequired()
-                .HasColumnType("varbinary(64)"); // Tamanho sugerido 
+                .HasColumnType("varbinary(64)");
 
             builder.Property(u => u.email)
                 .HasColumnName("email")
@@ -55,6 +55,13 @@ namespace TesteAplicacao.Infraestructure.Context.Configurations
             builder.Property(u => u.datahora_desativacao)
                 .HasColumnName("datahora_desativacao")
                 .IsRequired(false);
+
+            // Adicionando relação 1:N com Produto
+            builder
+                .HasMany(u => u.produtos)
+                .WithOne(p => p.usuario)
+                .HasForeignKey(p => p.usuario_id)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
