@@ -65,6 +65,7 @@ namespace TesteAplicacao.Infraestructure.Context
         #region DBSets
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Conta> Contas { get; set; }
         #endregion
     }
 }

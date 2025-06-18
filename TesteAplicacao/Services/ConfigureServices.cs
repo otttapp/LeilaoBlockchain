@@ -10,6 +10,7 @@ namespace TesteAplicacao.Services
             services.AddScoped<ProdutoService>();
             services.AddScoped<UsuarioService>();
             services.AddScoped<UsuarioAutenticadoService>();
+            services.AddScoped<ContaService>();
 
         }
     }

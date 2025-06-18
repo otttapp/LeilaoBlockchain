@@ -16,6 +16,8 @@ namespace TesteAplicacao.Entities
         public DateTime? datahora_desativacao { get; set; }
 
         public ICollection<Produto> produtos { get; set; } = new List<Produto>();
+        public virtual Conta Conta { get; set; } = null!;
+
     }
 
 }

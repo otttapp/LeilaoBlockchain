@@ -22,6 +22,61 @@ namespace TesteAplicacao.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("TesteAplicacao.Entities.Conta", b =>
+                {
+                    b.Property<long>("conta_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("conta_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("conta_id"));
+
+                    b.Property<bool>("ativa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("ativa");
+
+                    b.Property<string>("banco")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("banco");
+
+                    b.Property<DateTime?>("data_criacao")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("data_criacao");
+
+                    b.Property<string>("numero")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("numero");
+
+                    b.Property<decimal>("saldo_disponivel")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("saldo_disponivel");
+
+                    b.Property<decimal>("saldo_pendente")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("saldo_pendente");
+
+                    b.Property<decimal>("saldo_total")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("saldo_total");
+
+                    b.Property<long>("usuario_id")
+                        .HasColumnType("bigint")
+                        .HasColumnName("usuario_id");
+
+                    b.HasKey("conta_id");
+
+                    b.HasIndex("usuario_id")
+                        .IsUnique();
+
+                    b.ToTable("conta", (string)null);
+                });
+
             modelBuilder.Entity("TesteAplicacao.Entities.Produto", b =>
                 {
                     b.Property<long>("produto_id")
@@ -129,6 +184,17 @@ namespace TesteAplicacao.Migrations
                     b.ToTable("usuario", (string)null);
                 });
 
+            modelBuilder.Entity("TesteAplicacao.Entities.Conta", b =>
+                {
+                    b.HasOne("TesteAplicacao.Entities.Usuario", "Usuario")
+                        .WithOne("Conta")
+                        .HasForeignKey("TesteAplicacao.Entities.Conta", "usuario_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("TesteAplicacao.Entities.Produto", b =>
                 {
                     b.HasOne("TesteAplicacao.Entities.Usuario", "usuario")
@@ -142,6 +208,9 @@ namespace TesteAplicacao.Migrations
 
             modelBuilder.Entity("TesteAplicacao.Entities.Usuario", b =>
                 {
+                    b.Navigation("Conta")
+                        .IsRequired();
+
                     b.Navigation("produtos");
                 });
 #pragma warning restore 612, 618

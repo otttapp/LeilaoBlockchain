@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TesteAplicacao.Migrations
 {
     /// <inheritdoc />
-    public partial class mssqlonprem_migration_389 : Migration
+    public partial class mssqlonprem_migration_521 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,6 +29,32 @@ namespace TesteAplicacao.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_usuario", x => x.usuario_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "conta",
+                columns: table => new
+                {
+                    conta_id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    usuario_id = table.Column<long>(type: "bigint", nullable: false),
+                    numero = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    banco = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ativa = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    data_criacao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    saldo_total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    saldo_disponivel = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    saldo_pendente = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_conta", x => x.conta_id);
+                    table.ForeignKey(
+                        name: "FK_conta_usuario_usuario_id",
+                        column: x => x.usuario_id,
+                        principalTable: "usuario",
+                        principalColumn: "usuario_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,6 +84,12 @@ namespace TesteAplicacao.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_conta_usuario_id",
+                table: "conta",
+                column: "usuario_id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_produto_usuario_id",
                 table: "produto",
                 column: "usuario_id");
@@ -66,6 +98,9 @@ namespace TesteAplicacao.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "conta");
+
             migrationBuilder.DropTable(
                 name: "produto");
 
