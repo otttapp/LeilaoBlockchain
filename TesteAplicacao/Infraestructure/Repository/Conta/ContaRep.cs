@@ -15,7 +15,7 @@ namespace TesteAplicacao.Infraestructure.Repository
 
         }
 
-        public async Task<PagedResult<GetContasDto>> GetContas(PaginacaoRequestDTO dto/*, bool ativo*/)
+        public async Task<PagedResult<GetContasDto>> GetContas(PaginacaoRequestDTO dto, bool ativo)
         {
             var contas = await db.Contas
                 .Include(u => u.Usuario)
@@ -32,9 +32,9 @@ namespace TesteAplicacao.Infraestructure.Repository
                     banco = u.banco,
                     ativa = u.ativa,
                     data_criacao = u.data_criacao,
-                    saldo_disponivel = u.saldo_disponivel,
-                    saldo_pendente = u.saldo_pendente,
-                    saldo_total = u.saldo_total,
+                    saldo_disponivel = u.saldo_disponivel ?? 0,
+                    saldo_pendente = u.saldo_pendente ?? 0,
+                    saldo_total = u.saldo_total ?? 0,
                     Usuario = new UsuarioBaseDto()
                     {
                         nome = u.Usuario.nome,

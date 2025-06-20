@@ -59,6 +59,11 @@ namespace TesteAplicacao.Infraestructure.Context.Configurations
                 .WithOne(u => u.Conta)
                 .HasForeignKey<Conta>(c => c.usuario_id)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(c => c.Transacoes)
+            .WithOne(t => t.conta)
+            .HasForeignKey(t => t.conta_id)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 

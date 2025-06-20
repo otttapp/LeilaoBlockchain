@@ -10,6 +10,7 @@ namespace TesteAplicacao.Infraestructure.Repository
             services.AddScoped<IProdutoRep, ProdutoRep>();
             services.AddScoped<IUsuarioRep, UsuarioRep>();
             services.AddScoped<IContaRep, ContaRep>();
+            services.AddScoped<ITransacoesContaRep, TransacaoContaRep>();
         }
     }
 }

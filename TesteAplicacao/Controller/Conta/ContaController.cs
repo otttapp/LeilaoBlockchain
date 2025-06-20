@@ -22,10 +22,17 @@ namespace TesteAplicacao.Controller.Conta
             return Ok(new HttpOkResponse<bool>("Conta inserida com sucesso.", await _contaService.InserirConta(request, usuario_id)));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetContas([FromQuery] PaginacaoRequestDTO dto/*, [FromQuery] bool ativo*/)
+        [HttpPost("{conta_id}/saldo")]
+        public async Task<IActionResult> InserirSaldo([FromBody] InserirSaldoRequestDto request, uint conta_id)
         {
-            return Ok(new HttpOkResponse<PagedResult<GetContasDto>>("Contas listados com sucesso!", await _contaService.GetContas(dto/*, ativo*/)));
+            return Ok(new HttpOkResponse<bool>("Saldo inserido com sucesso.", await _contaService.InserirSaldo(request, conta_id)));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetContas([FromQuery]PaginacaoRequestDTO dto, [FromQuery] bool ativo)
+        {
+            return Ok(new HttpOkResponse<PagedResult<GetContasDto>>("Contas listados com sucesso!", await _contaService.GetContas(dto, ativo)));
         }
     }
 }
+ 

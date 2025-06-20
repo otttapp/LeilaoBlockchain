@@ -129,10 +129,10 @@ namespace TesteAplicacao.Infraestructure.Repository
         {
             var entity = await db.Set<TEntity>().FindAsync(id);
 
-            if (entity == null)
+           /* if (entity == null)
             {
                 throw new BusinessException("ENTIDADE_NAO_ENCONTRADA", "Entidade não encontrada.");
-            }
+            }*/
 
             return entity;
         }

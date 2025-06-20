@@ -128,6 +128,44 @@ namespace TesteAplicacao.Migrations
                     b.ToTable("produto", (string)null);
                 });
 
+            modelBuilder.Entity("TesteAplicacao.Entities.TransacaoConta", b =>
+                {
+                    b.Property<long>("transacao_conta_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("transacao_conta_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("transacao_conta_id"));
+
+                    b.Property<long>("conta_id")
+                        .HasColumnType("bigint")
+                        .HasColumnName("conta_id");
+
+                    b.Property<long?>("conta_id1")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("datahora_transacao")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("datahora");
+
+                    b.Property<string>("descricao")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("descricao");
+
+                    b.Property<decimal>("valor")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("valor");
+
+                    b.HasKey("transacao_conta_id");
+
+                    b.HasIndex("conta_id");
+
+                    b.HasIndex("conta_id1");
+
+                    b.ToTable("transacao_conta", (string)null);
+                });
+
             modelBuilder.Entity("TesteAplicacao.Entities.Usuario", b =>
                 {
                     b.Property<long>("usuario_id")
@@ -204,6 +242,26 @@ namespace TesteAplicacao.Migrations
                         .IsRequired();
 
                     b.Navigation("usuario");
+                });
+
+            modelBuilder.Entity("TesteAplicacao.Entities.TransacaoConta", b =>
+                {
+                    b.HasOne("TesteAplicacao.Entities.Conta", "conta")
+                        .WithMany()
+                        .HasForeignKey("conta_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TesteAplicacao.Entities.Conta", null)
+                        .WithMany("Transacoes")
+                        .HasForeignKey("conta_id1");
+
+                    b.Navigation("conta");
+                });
+
+            modelBuilder.Entity("TesteAplicacao.Entities.Conta", b =>
+                {
+                    b.Navigation("Transacoes");
                 });
 
             modelBuilder.Entity("TesteAplicacao.Entities.Usuario", b =>

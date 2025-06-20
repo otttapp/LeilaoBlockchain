@@ -5,6 +5,6 @@ namespace TesteAplicacao.Infraestructure.Interfaces
 {
     public interface IContaRep : IRepositoryBase<Conta>
     {
-        Task<PagedResult<GetContasDto>> GetContas(PaginacaoRequestDTO dto/*, bool ativo*/);
+        Task<PagedResult<GetContasDto>> GetContas(PaginacaoRequestDTO dto, bool ativo);
     }
 }

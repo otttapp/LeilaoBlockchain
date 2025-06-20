@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TesteAplicacao.Migrations
 {
     /// <inheritdoc />
-    public partial class mssqlonprem_migration_521 : Migration
+    public partial class mssqlonprem_migration_275 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,6 +83,34 @@ namespace TesteAplicacao.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "transacao_conta",
+                columns: table => new
+                {
+                    transacao_conta_id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    datahora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    conta_id = table.Column<long>(type: "bigint", nullable: false),
+                    conta_id1 = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_transacao_conta", x => x.transacao_conta_id);
+                    table.ForeignKey(
+                        name: "FK_transacao_conta_conta_conta_id",
+                        column: x => x.conta_id,
+                        principalTable: "conta",
+                        principalColumn: "conta_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_transacao_conta_conta_conta_id1",
+                        column: x => x.conta_id1,
+                        principalTable: "conta",
+                        principalColumn: "conta_id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_conta_usuario_id",
                 table: "conta",
@@ -93,16 +121,29 @@ namespace TesteAplicacao.Migrations
                 name: "IX_produto_usuario_id",
                 table: "produto",
                 column: "usuario_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transacao_conta_conta_id",
+                table: "transacao_conta",
+                column: "conta_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transacao_conta_conta_id1",
+                table: "transacao_conta",
+                column: "conta_id1");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "conta");
+                name: "produto");
 
             migrationBuilder.DropTable(
-                name: "produto");
+                name: "transacao_conta");
+
+            migrationBuilder.DropTable(
+                name: "conta");
 
             migrationBuilder.DropTable(
                 name: "usuario");

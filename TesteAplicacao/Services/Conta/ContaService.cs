@@ -16,15 +16,17 @@ namespace TesteAplicacao.Services
         private readonly IUsuarioRep _usuarioRep;
         private readonly UsuarioAutenticadoService _usuarioAutenticado;
         private readonly IContaRep _contaRep;
+        private readonly ITransacoesContaRep _transacoesContaRep;
 
         public ContaService(MainDBContext dbContext, IProdutoRep produtoRep, IUsuarioRep usuarioRep,
-            UsuarioAutenticadoService usuarioAutenticado, IContaRep contaRep)
+            UsuarioAutenticadoService usuarioAutenticado, IContaRep contaRep, ITransacoesContaRep transacoesContaRep)
         {
             this._dbContext = dbContext;
             this._produtoRep = produtoRep;
             this._usuarioRep = usuarioRep;
             this._usuarioAutenticado = usuarioAutenticado;
             this._contaRep = contaRep;
+            this._transacoesContaRep = transacoesContaRep;
         }
 
         public async Task<bool> InserirConta(InserirContaRequestDto request, uint usuario_id)
@@ -38,12 +40,11 @@ namespace TesteAplicacao.Services
                 existe = await _dbContext.Contas.AnyAsync(c => c.numero == numeroGerado);
             } while (existe);
 
-            var usuarioExis = await _contaRep.GetById(usuario_id);
-
             if (await _contaRep.GetById(usuario_id) != null)
             {
                 throw new BusinessException("Somente pode ter uma conta por usuário.");
             }
+
             var conta = new Conta
             {
                 usuario_id = usuario_id,
@@ -65,9 +66,33 @@ namespace TesteAplicacao.Services
             return true;
         }
 
-        public async Task<PagedResult<GetContasDto>> GetContas(PaginacaoRequestDTO dto/*, bool ativo*/)
+        public async Task<bool> InserirSaldo(InserirSaldoRequestDto request, uint conta_id)
         {
-            return await _contaRep.GetContas(dto/*, ativo*/);
+        
+            var transacaoSaldo = new TransacaoConta
+            {
+                valor = request.valor,
+                descricao = request.descricao,
+                datahora_transacao = DateTime.UtcNow,
+                conta_id = conta_id
+            };
+
+            var saldo = await _contaRep.GetByIdThrowsIfNull(conta_id);
+
+            saldo.saldo_total = saldo.saldo_total + request.valor;
+
+            await _dbContext.RunInTransactionAsync(async () =>
+            {
+                await _contaRep.Update(saldo);
+                await _transacoesContaRep.Add(transacaoSaldo);
+            });
+
+            return true;
+        }
+
+        public async Task<PagedResult<GetContasDto>> GetContas(PaginacaoRequestDTO dto, bool ativo)
+        {
+            return await _contaRep.GetContas(dto, ativo);
         }
     }
 }
