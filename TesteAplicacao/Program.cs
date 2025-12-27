@@ -1,8 +1,7 @@
-using System.Net;
-using System.Net.Mime;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Net;
+using System.Net.Mime;
 using TesteAplicacao.Infraestructure.Context;
 using TesteAplicacao.Infraestructure.Middleware;
 using TesteAplicacao.Infraestructure.Repository;
@@ -13,10 +12,10 @@ using TesteAplicacao.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
-//docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SenhaPika@123" -p 1433:1433 --name sqlserver-container -d mcr.microsoft.com/mssql/server:2019-latest
-
-
+// DOCKER RUN INICIAR BANCO DE DADOS LOCAL MYSQL
+// ------------------------------------------------------------------------------ //    
+//  docker run --name meu-mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql
+// ------------------------------------------------------------------------------ //
 
 
 builder.Services.AddControllers(options =>
